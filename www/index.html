@@ -27,22 +27,22 @@
                     <th>Lift</th> <th>Sets</th> <th>Reps</th> <th>Work Weight (lbs)</th>
                 </tr>
                 <tr>
-                    <td>Bench press</td>
-                    <td data-content="setsBench"></td>
-                    <td data-content="repsBench"></td>
-                    <td data-content="weightBench"></td>
+                    <td data-content="exercise0"></td>
+                    <td data-content="setsExercise0"></td>
+                    <td data-content="repsExercise0"></td>
+                    <td data-content="weightExercise0"></td>
                 </tr>
                 <tr>
-                    <td>Squat</td>
-                    <td data-content="setsSquat"></td>
-                    <td data-content="repsSquat"></td>
-                    <td data-content="weightSquat"></td>
+                    <td data-content="exercise1"></td>
+                    <td data-content="setsExercise1"></td>
+                    <td data-content="repsExercise1"></td>
+                    <td data-content="weightExercise1"></td>
                 </tr>
                 <tr>
-                    <td>Dead lift</td>
-                    <td data-content="setsDead"></td>
-                    <td data-content="repsDead"></td>
-                    <td data-content="weightDead"></td>
+                    <td data-content="exercise2"></td>
+                    <td data-content="setsExercise2"></td>
+                    <td data-content="repsExercise2"></td>
+                    <td data-content="weightExercise2"></td>
                 </tr>
             </table>
 
@@ -66,7 +66,7 @@
 
         <script type="text/html" id="template-howto">
             <h1>How to Squat, DL, Bench, etc.</h1>
-        <script>
+        </script>
 
         <script type="text/javascript" src="js/global.js"></script>
         <script type="text/javascript" src="js/tests.js"></script>
@@ -78,28 +78,34 @@
 
         <script type="text/javascript">
             global_state_oh_yeah_baby = {};
+            fail_counterA = 0;
+            fail_counterB = 0;
+            workout_scenario_counter = 0;
+            global_template_workoutA = getGlobalTemplateWorkoutA();
+            global_template_workoutB = getGlobalTemplateWorkoutB();
+            global_template_workout = global_template_workoutB;
 
             function loadWorkout() {
-              $('#appView').loadTemplate($('#template-workout'), {
-                setsSquat: 3,
-                repsSquat: 5,
-                weightSquat: 45,
-                setsBench: 3,
-                repsBench: 5,
-                weightBench: 45,
-                setsDead: 1,
-                repsDead: 5,
-                weightDead: 45
-              });
+              if (isWorkoutA() ) {
+                global_template_workout = global_template_workoutA;
+              } else {
+                global_template_workout = global_template_workoutB;
+              }
+              $('#appView').loadTemplate($('#template-workout'), global_template_workout);
+              
               global_state_oh_yeah_baby.view = 'workout'
             }
             function loadSuccess() {
               $('#appView').loadTemplate($('#template-success'))
               global_state_oh_yeah_baby.view = 'success'
+              progress();
+              workout_scenario_counter += 1;
             }
             function loadFailure() {
               $('#appView').loadTemplate($('#template-failure'))
               global_state_oh_yeah_baby.view = 'failure'
+              regress();
+              workout_scenario_counter += 1;
             }
             function loadSettings() {
               $('#appView').loadTemplate($('#template-settings'))
@@ -109,6 +115,85 @@
               $('#appView').loadTemplate($('#template-howto'))
               global_state_oh_yeah_baby.view = 'howto'
             }
+            function getGlobalTemplateWorkoutA(){
+              return {
+                exercise0: 'Squat',   //Squat
+                setsExercise0: 3,         //Squat
+                repsExercise0: 5,         //Squat
+                weightExercise0: 45,      //Squat
+                exercise1: 'Bench',
+                setsExercise1: 3,         //Bench
+                repsExercise1: 5,         //Bench
+                weightExercise1: 45,      //Bench
+                exercise2: 'Deadlift',
+                setsExercise2: 1,          //Deadlift
+                repsExercise2: 5,          //Deadlift
+                weightExercise2: 45        //Deadlift
+              };
+            }
+            function getGlobalTemplateWorkoutB(){
+              return {
+                exercise0: 'Squat',
+                setsExercise0: 3,
+                repsExercise0: 5,
+                weightExercise0: 50,
+                exercise1: 'Press',
+                setsExercise1: 3,
+                repsExercise1: 5,
+                weightExercise1: 45,
+                exercise2: 'Row',
+                setsExercise2: 3,
+                repsExercise2: 5,
+                weightExercise2: 45
+              };
+            }
+
+            function progress() {
+              if (isWorkoutA()) {
+                fail_counterA = 0;
+                global_template_workoutA['weightExercise0'] += 5;
+                global_template_workoutA['weightExercise1'] += 5;
+                global_template_workoutA['weightExercise2'] += 5;
+              } else {
+                fail_counterB = 0;
+                global_template_workoutB['weightExercise0'] += 5;
+                global_template_workoutB['weightExercise1'] += 5;
+                global_template_workoutB['weightExercise2'] += 5;
+              }
+              
+              
+            }
+
+
+
+            function regress() {
+              if (isWorkoutA() ) {
+                  fail_counterA += 1;
+                  if (fail_counterA === 3) {
+                    global_template_workout['weightExercise0'] -= 5;
+                    global_template_workout['weightExercise1'] -= 5;
+                    global_template_workout['weightExercise2'] -= 5;
+                    fail_counterA = 0;
+                  }
+              } else {
+                fail_counterB += 1;
+                if (fail_counterB === 3) {
+                    global_template_workoutB['weightExercise0'] -= 5;
+                    global_template_workoutB['weightExercise1'] -= 5;
+                    global_template_workoutB['weightExercise2'] -= 5;
+                    fail_counterB = 0;
+                }
+
+              }
+            }
+
+            function isWorkoutA() {
+                if (workout_scenario_counter % 2 === 0) {
+                    return true;
+                }
+                return false;
+            }
+
         </script>
 
         <script>
