@@ -72,12 +72,16 @@
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+        <script type="text/javascript" src="js/swipeupdown.js"></script>
         <script>
             $(function(){
+
               // Bind the swipeHandler callback function to the swipe event on div.box
               $( window ).swiperight(swipeRightHandler );
               $( window ).swipeleft(swipeLeftHandler );
-             
+              $( window ).on('swipedown', swipeDownHandler);
+              $( window ).on('swipeup', swipeUpHandler);
+              
               
               function swipeRightHandler( event ){
                 $("#hello").val( "swiped - RIGHT" );
@@ -85,8 +89,15 @@
               function swipeLeftHandler( event ){
                 $("#hello").val( "swiped - LEFT" );
               }
+              function swipeDownHandler( event ){
+                $("#hello").val( "swiped - Down" );
+              }
+              function swipeUpHandler( event ){
+                $("#hello").val( "swiped - UP" );
+              }
+              
             });
-            </script>
+        </script>
 
         <script type="text/javascript">
             app.initialize();
