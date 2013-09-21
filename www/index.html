@@ -77,10 +77,10 @@
         <script type="text/javascript" src="js/jquery.loadTemplate-1.2.3.min.js"></script>
 
         <script type="text/javascript">
-            app.initialize();
+            global_state_oh_yeah_baby = {};
 
-            $('#appView').loadTemplate($('#template-workout'),
-            {
+            function loadWorkout() {
+              $('#appView').loadTemplate($('#template-workout'), {
                 setsSquat: 3,
                 repsSquat: 5,
                 weightSquat: 45,
@@ -90,8 +90,25 @@
                 setsDead: 1,
                 repsDead: 5,
                 weightDead: 45
-
-            });
+              });
+              global_state_oh_yeah_baby.view = 'workout'
+            }
+            function loadSuccess() {
+              $('#appView').loadTemplate($('#template-success'))
+              global_state_oh_yeah_baby.view = 'success'
+            }
+            function loadFailure() {
+              $('#appView').loadTemplate($('#template-failure'))
+              global_state_oh_yeah_baby.view = 'failure'
+            }
+            function loadSettings() {
+              $('#appView').loadTemplate($('#template-settings'))
+              global_state_oh_yeah_baby.view = 'settings'
+            }
+            function loadHowTo() {
+              $('#appView').loadTemplate($('#template-howto'))
+              global_state_oh_yeah_baby.view = 'howto'
+            }
         </script>
 
         <script>
@@ -102,26 +119,43 @@
               $( window ).swipeleft(swipeLeftHandler );
               $( window ).on('swipedown', swipeDownHandler);
               $( window ).on('swipeup', swipeUpHandler);
-
+              $( window ).on('doubleclick', loadWorkout);
 
               function swipeRightHandler( event ){
-                $('#appView').loadTemplate($('#template-success'))
+                if (global_state_oh_yeah_baby.view === 'workout') {
+                  loadSuccess();
+                } else {
+                  loadWorkout();
+                }
               }
               function swipeLeftHandler( event ){
-                $('#appView').loadTemplate($('#template-failure'))
+                if (global_state_oh_yeah_baby.view === 'workout') {
+                  loadFailure();
+                } else {
+                  loadWorkout();
+                }
               }
               function swipeDownHandler( event ){
-                $('#appView').loadTemplate($('#template-settings'))
+                if (global_state_oh_yeah_baby.view === 'workout') {
+                  loadSettings();
+                } else if (global_state_oh_yeah_baby.view === 'howto') {
+                  loadWorkout();
+                }
               }
               function swipeUpHandler( event ){
-                $('#appView').loadTemplate($('#template-howto'))
+                if (global_state_oh_yeah_baby.view === 'workout') {
+                  loadHowTo();
+                } else if (global_state_oh_yeah_baby.view === 'settings') {
+                  loadWorkout();
+                }
               }
-
             });
         </script>
 
         <script type="text/javascript">
-
+            app.initialize();
+            global_state_oh_yeah_baby = {}
+            loadWorkout();
         </script>
     </body>
 </html>
