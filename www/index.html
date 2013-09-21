@@ -9,70 +9,91 @@
         <title>PhoneGap 3.0 Boilerplate</title>
     </head>
     <body>
-        <div class="app">
-            <div class="world">
-                <h1> HELLO WORLD!!! </h1>
-                <input id="hello" type="text"> 
-            </div>
-            <h1>PhoneGap 3.0 Boilerplate</h1>
-            <div id="deviceready" class="blink info">
-                <label>Device Status:</label><p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
-            <div id="plugin_tests">
-                <div id='info'>
-                    <h4>/cordova-plugin-device.git</h4>
-                    <div class="info" id="device_platform"><label>device.platform:</label><span></span></div>
-                    <div class="info" id="device_model"><label>device.model:</label><span></span></div>
-                    <div class="info" id="device_os"><label>device.os:</label><span></span></div>
-                    <div class="info" id="device_version"><label>device.version:</label><span></span></div>
-                    
-                    <h4>/cordova-plugin-network-information.git</h4>
-                    <div class="info" id="device_conn"><label>Connection:</label><span></span></div>
-                    <div class="info" id="device_internet"><label>Internet?:</label><span></span></div>
-                </div>
-                <div id='tests'>
-                    <h4>/cordova-plugin-splashscreen.git</h4>
-                    <input type='button' onclick="test_SplashScreen()" value='SplashScreen'/>
-                    <h4>/cordova-plugin-inappbrowser.git</h4>
-                    <input type='button' onclick="test_InAppBrowser_NoOptions()" value='URL (Fullscreen)'/>
-                    <input type="button" onclick="test_PDFBrowser()" value='PDF (Fullscreen)'/>
-                    <input type='button' onclick="test_InAppBrowser_WithOptions()" value='URL (Split-View)'/>
-                    <input type="button" onclick="test_PDF_Windowed()" value='PDF (Centered Window)'/>
-                    <input type="button" onclick="test_PDFBrowser_Vertical()" value='PDF (% Vertical Space)'/>                                    
-                    <input type="button" onclick="test_PDFBrowser_Form()" value='PDF (Formsheet)'/>                                                                                                
-                    
-                    <h4>cemerson/cordova-securedeviceidentifier.git</h4>
-                    <input type="button"
-                    onclick="test_SDID()"
-                    value='Get SSID'/>
-                    <label id='device_id' class='test_label'>???</label>
-                    <h4>cemerson/cordova-powermanagement.git</h4>
-                    <input type="button"
-                    onclick="test_PowerManagement()"
-                    value='Toggle AutoLock'/>
-                    <label id='powermgmt_status' class='test_label'>???</label>
-                    
-                    <h4>cemerson/cordova-badge.git</h4>
-                    <input type="button"
-                    onclick="test_Badge()"
-                    value='Toggle Icon Badge'/>
-                    
-                    
-                    
-                </div>
-                <br clear='all'/>
-            </div>
-            <br clear='all'/>
+        <div id="appView">
         </div>
-        <br clear='all'/>
-        
+
+        <script type="text/html" id="template-workout">
+            <div data-content="author"></div>
+            <div data-content="date"></div>
+            <img data-src="authorPicture" data-alt="author"/>
+            <div data-content="post"></div>
+
+            <h1 data-content="title">AutoTrainer Roolz!</h1>
+
+            <p data-content="workout">Today's workout:</p>
+
+            <table>
+                <tr>
+                    <th>Lift</th> <th>Sets</th> <th>Reps</th> <th>Work Weight (lbs)</th>
+                </tr>
+                <tr>
+                    <td>Bench press</td>
+                    <td data-content="setsBench"></td>
+                    <td data-content="repsBench"></td>
+                    <td data-content="weightBench"></td>
+                </tr>
+                <tr>
+                    <td>Squat</td>
+                    <td data-content="setsSquat"></td>
+                    <td data-content="repsSquat"></td>
+                    <td data-content="weightSquat"></td>
+                </tr>
+                <tr>
+                    <td>Dead lift</td>
+                    <td data-content="setsDead"></td>
+                    <td data-content="repsDead"></td>
+                    <td data-content="weightDead"></td>
+                </tr>
+            </table>
+
+            <p>Swipe → if you were able to do all these lifts.</p>
+            <p>Swipe ← if you couldn't do all of them.</p>
+            <p>Swipe ↓ for settings</p>
+            <p>Swipe ↑ for exercise description</p>
+        </script>
+
+        <script type="text/html" id="template-success">
+            <h1>Success!</h1>
+        </script>
+
+        <script type="text/html" id="template-failure">
+            <h1>Fail!</h1>
+        </script>
+
+        <script type="text/html" id="template-settings">
+            <h1>Settings</h1>
+        </script>
+
+        <script type="text/html" id="template-howto">
+            <h1>How to Squat, DL, Bench, etc.</h1>
+        <script>
+
         <script type="text/javascript" src="js/global.js"></script>
         <script type="text/javascript" src="js/tests.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
         <script type="text/javascript" src="js/swipeupdown.js"></script>
+        <script type="text/javascript" src="js/jquery.loadTemplate-1.2.3.min.js"></script>
+
+        <script type="text/javascript">
+            app.initialize();
+
+            $('#appView').loadTemplate($('#template-workout'),
+            {
+                setsSquat: 3,
+                repsSquat: 5,
+                weightSquat: 45,
+                setsBench: 3,
+                repsBench: 5,
+                weightBench: 45,
+                setsDead: 1,
+                repsDead: 5,
+                weightDead: 45
+
+            });
+        </script>
+
         <script>
             $(function(){
 
@@ -81,26 +102,26 @@
               $( window ).swipeleft(swipeLeftHandler );
               $( window ).on('swipedown', swipeDownHandler);
               $( window ).on('swipeup', swipeUpHandler);
-              
-              
+
+
               function swipeRightHandler( event ){
-                $("#hello").val( "swiped - RIGHT" );
+                $('#appView').loadTemplate($('#template-success'))
               }
               function swipeLeftHandler( event ){
-                $("#hello").val( "swiped - LEFT" );
+                $('#appView').loadTemplate($('#template-failure'))
               }
               function swipeDownHandler( event ){
-                $("#hello").val( "swiped - Down" );
+                $('#appView').loadTemplate($('#template-settings'))
               }
               function swipeUpHandler( event ){
-                $("#hello").val( "swiped - UP" );
+                $('#appView').loadTemplate($('#template-howto'))
               }
-              
+
             });
         </script>
 
         <script type="text/javascript">
-            app.initialize();
+
         </script>
     </body>
 </html>
