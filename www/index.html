@@ -9,6 +9,10 @@
         <title>PhoneGap 3.0 Boilerplate</title>
     </head>
     <body>
+      <script type="text/javascript">
+        global_state_oh_yeah_baby = {};
+      </script>
+
         <div id="appView">
         </div>
 
@@ -64,8 +68,28 @@
             <h1>Settings</h1>
         </script>
 
-        <script type="text/html" id="template-howto">
-            <h1>How to Squat, DL, Bench, etc.</h1>
+        <script type="text/html" id="template-howto-squat">
+          <h1>How to Squat</h1>
+        </script>
+
+        <script type="text/html" id="template-howto-bench">
+          <h1>How to Bench Press</h1>
+        </script>
+
+        <script type="text/html" id="template-howto-dead">
+          <h1>How to Deadlift</h1>
+        </script>
+
+        <script type="text/html" id="template-howto-press">
+          <h1>How to Overhead Press</h1>
+        </script>
+
+        <script type="text/html" id="template-howto-row">
+          <h1>How to Row</h1>
+        </script>
+
+        <script type="text/html" id="template-howto-chin">
+          <h1>How to do Chin Ups / Pull Ups</h1>
         </script>
 
         <script type="text/javascript" src="js/global.js"></script>
@@ -111,8 +135,21 @@
               $('#appView').loadTemplate($('#template-settings'))
               global_state_oh_yeah_baby.view = 'settings'
             }
-            function loadHowTo() {
-              $('#appView').loadTemplate($('#template-howto'))
+            function loadHowTo(i) {
+              exercises = ['squat', 'bench', 'dead', 'press', 'row', 'chin'];
+              current = global_state_oh_yeah_baby.exercise ? global_state_oh_yeah_baby.exercise : 'squat';
+              nextIndex = (exercises.indexOf(current) + i)
+              next = exercises[nextIndex];
+
+              if (next) {
+                global_state_oh_yeah_baby.exercise = next;
+                loadHowToExercise(next);
+              }
+            }
+            function loadHowToExercise(exercise) {
+              template = "#template-howto-" + exercise
+              console.log(template);
+              $('#appView').loadTemplate($(template))
               global_state_oh_yeah_baby.view = 'howto'
             }
             function getGlobalTemplateWorkoutA(){
@@ -209,15 +246,19 @@
               function swipeRightHandler( event ){
                 if (global_state_oh_yeah_baby.view === 'workout') {
                   loadSuccess();
-                } else {
+                } else if (global_state_oh_yeah_baby.view === 'success') {
                   loadWorkout();
+                } else if (global_state_oh_yeah_baby.view === 'howto') {
+                  loadHowTo(1);
                 }
               }
               function swipeLeftHandler( event ){
                 if (global_state_oh_yeah_baby.view === 'workout') {
                   loadFailure();
-                } else {
+                } else if (global_state_oh_yeah_baby.view === 'failure') {
                   loadWorkout();
+                } else if (global_state_oh_yeah_baby.view === 'howto') {
+                  loadHowTo(-1);
                 }
               }
               function swipeDownHandler( event ){
@@ -229,7 +270,7 @@
               }
               function swipeUpHandler( event ){
                 if (global_state_oh_yeah_baby.view === 'workout') {
-                  loadHowTo();
+                  loadHowTo(0);
                 } else if (global_state_oh_yeah_baby.view === 'settings') {
                   loadWorkout();
                 }
@@ -239,7 +280,6 @@
 
         <script type="text/javascript">
             app.initialize();
-            global_state_oh_yeah_baby = {}
             loadWorkout();
         </script>
     </body>
