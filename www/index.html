@@ -10,10 +10,10 @@
     </head>
     <body>
         <div id="appView">
-          <h1>Today's Workout:</h1>
+          <h1>Today's Workout</h1>
           <ul class="workout-list">
           </ul>
-          <a href="#" id="complete-workout">Complete Workout</a>
+          <a href="#" id="complete-workout">Next Workout</a>
         </div>
 
         <script type="text/javascript" src="js/tests.js"></script>
@@ -27,9 +27,10 @@
 
         <script type="text/html" id="lift-template">
           <li class="lift">
-            <p>Lift: <span data-content="lift"></span></p>
-            <p>Weight: <span data-content="weight"></span></p>
-            <p>Reps: <span data-content="reps"></span></p>
+            <h2><span data-content="lift"></h2>
+            <hr>
+            <p><span data-content="reps" class="value"></span> reps @
+            <span data-content="weight" class="value"></span> lbs.</p>
           </li>
         </script>
 

@@ -32,12 +32,14 @@
       append: true,
       afterInsert: function($elem) {
         $elem.swipeleft(function(){
-          $(this).hide();
+          $(this).addClass('failed');
+          $(this).hide( "explode");
           lift.result = 'fail';
         })
 
         $elem.swiperight(function(){
-          $(this).hide();
+          $(this).addClass('succeeded');
+          $(this).hide( "explode" );
           lift.result = 'pass';
         })
       }

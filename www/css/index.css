@@ -30,10 +30,55 @@
   padding: 0;
 }
 
-.workout-list .lift {
+.lift {
   margin: 0.5em 1em;
   border: 1px solid gray;
   padding: 0.5em;
   height: 350px;
+  background-color: #ccc;
+  color: black;
+  border-radius:25px;
 }
 
+.lift.failed {
+  background-color: #f88;
+}
+
+.lift.succeeded {
+  background-color: #8f8;
+}
+
+.lift h2 {
+  font-size: 200%;
+}
+
+.lift .value {
+  font-size: 400%;
+}
+
+.h1 {
+  margin-left: 1em;
+}
+
+body {
+  background-color: #005;
+}
+
+#appView {
+  color: #ddd;
+  padding: 1em;
+}
+
+#complete-workout {
+  padding: 1em;
+  border-radius:5px;
+  background-color: green;
+  margin-top: 20px;
+  width: 100px;
+  margin: 20px auto;
+  color: white;
+}
+
+#complete-workout a {
+  text-decoration: none;
+}
