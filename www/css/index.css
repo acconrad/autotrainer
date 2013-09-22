@@ -27,17 +27,14 @@
 .workout-list {
   list-style-type: none;
   margin: 0;
+  margin-bottom: 10px;
   padding: 0;
 }
 
 .lift {
-  margin: 0.5em 1em;
-  border: 1px solid gray;
+  background-color: rgba(255, 255, 255, 0.3);
   padding: 0;
-  height: 350px;
-  background-image:url('../img/sandpaper.png');
-  color: black;
-  border-radius:25px;
+  margin-bottom: 10px;
 }
 
 .lift.failed h2 {
@@ -48,15 +45,6 @@
   background-color: #8f8;
 }
 
-.lift h2 {
-  font-size: 200%;
-  background-color: white;
-  border-radius: 25px 25px 0 0;
-  margin-top: 0;
-  padding: 1em 0.5em;
-  border-bottom: 2px solid black;
-}
-
 .lift p {
   padding: 1em;
 }
@@ -65,27 +53,45 @@
   font-size: 400%;
 }
 
-.h1 {
-  margin-left: 1em;
+h1, h2, h3, h4, p, li, a {
+  color: white;
+  font-family: "HelveticaNeue-UltraLight", Helvetica, Arial, sans-serif;
+  font-weight: 100;
+  letter-spacing: 3px;
+}
+
+h1 {
+  color: white;
+  margin-left: .5em;
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 2.75em;
+  margin-top: 0;
+  padding: 0.5em;
+  border-bottom: 2px solid white;
 }
 
 body {
-  background-color: #005;
+  background: url('../img/background.jpg') #000;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #appView {
-  color: #ddd;
-  padding: 1em;
+  color: white;
 }
 
 #complete-workout {
-  padding: 1em;
-  border-radius:5px;
-  background-color: green;
-  margin-top: 20px;
-  width: 100px;
-  margin: 20px auto;
+  font-size: :;em;
+  padding: 1em 0;
+  background-color: #30CD72;
+  width: 100%;
   color: white;
+  text-align: center;
+  text-decoration: none;
+  display: block;
 }
 
 #complete-workout a {
