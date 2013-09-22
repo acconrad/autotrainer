@@ -17,14 +17,14 @@ function StartingStrength() {
   this.liftList = [];
 }
 
-StartingStrength.prototype.lifts = function() {
+StartingStrength.prototype.newWorkout = function(which) {
   function addLift(list, liftName, workWeight) {
     incr = (workWeight - 45) / 4;
 
-    var weight;
-    for (weight = 45; weight < workWeight; weight += incr) {
-      list.push(new Lift(liftName, roundDownToFive(weight), 5));
-    }
+    // var weight;
+    // for (weight = 45; weight < workWeight; weight += incr) {
+    //   list.push(new Lift(liftName, roundDownToFive(weight), 5));
+    // }
 
     var i;
     for (i = 0; i < 3; i++) {
@@ -40,10 +40,16 @@ StartingStrength.prototype.lifts = function() {
     return rounded;
   }
 
-  if (this.day = 'A') {
+  this.liftList = [];
+
+  if (which === 'A') {
     addLift(this.liftList, 'Squat', this.squat);
     addLift(this.liftList, 'Bench Press', this.bench);
     addLift(this.liftList, 'Deadlift', this.dl);
+  } else {
+    addLift(this.liftList, 'Squat', this.squat);
+    addLift(this.liftList, 'Press', this.press);
+    addLift(this.liftList, 'Row', this.row);
   }
 
   return this.liftList;
