@@ -1,10 +1,11 @@
 (function() {
   autotrainer = {
     initialize: function() {
-      populateTodaysWorkout();
+      populateTodaysWorkout('A');
 
       $('#complete-workout').click(function() {
-        populateTodaysWorkout();
+        $('.workout-list li').remove();
+        populateTodaysWorkout('B');
       });
 
       $('h2 > small').click(function() {
@@ -12,11 +13,11 @@
       });
     },
 
-    thisWorkout: new StartingStrength()
+    program: new StartingStrength()
   }
 
-  var populateTodaysWorkout = function() {
-    var lifts = autotrainer.thisWorkout.lifts()
+  var populateTodaysWorkout = function(a) {
+    var lifts = autotrainer.program.newWorkout(a)
     for(var i=0; i<lifts.length; i++) {
       lift = lifts[i];
       addLift(lift);
@@ -47,7 +48,7 @@
       afterInsert: function($elem) {
         $elem.swipeleft(function(){
           $(this).addClass('failed');
-          $(this).hide( "explode");
+          $(this).hide( "explode" );
           lift.result = 'fail';
         })
 
