@@ -1,14 +1,22 @@
 (function() {
   autotrainer = {
     initialize: function() {
-      var lifts = this.thisWorkout.lifts()
-      for(var i=0; i<lifts.length; i++) {
-        lift = lifts[i];
-        addLift(lift);
-      }
+      populateTodaysWorkout();
+
+      $('#complete-workout').click(function() {
+        populateTodaysWorkout();
+      })
     },
 
     thisWorkout: new StartingStrength()
+  }
+
+  var populateTodaysWorkout = function() {
+    var lifts = autotrainer.thisWorkout.lifts()
+    for(var i=0; i<lifts.length; i++) {
+      lift = lifts[i];
+      addLift(lift);
+    }
   }
 
   var loadWorkoutHistory = function() {

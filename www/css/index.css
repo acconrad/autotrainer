@@ -33,23 +33,32 @@
 .lift {
   margin: 0.5em 1em;
   border: 1px solid gray;
-  padding: 0.5em;
+  padding: 0;
   height: 350px;
-  background-color: #ccc;
+  background-image:url('../img/sandpaper.png');
   color: black;
   border-radius:25px;
 }
 
-.lift.failed {
+.lift.failed h2 {
   background-color: #f88;
 }
 
-.lift.succeeded {
+.lift.succeeded h2 {
   background-color: #8f8;
 }
 
 .lift h2 {
   font-size: 200%;
+  background-color: white;
+  border-radius: 25px 25px 0 0;
+  margin-top: 0;
+  padding: 1em 0.5em;
+  border-bottom: 2px solid black;
+}
+
+.lift p {
+  padding: 1em;
 }
 
 .lift .value {
