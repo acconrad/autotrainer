@@ -7,9 +7,6 @@ input[type=button]{
     color:#444;
     margin-top:10px;
 }
-*{
-    font-family:sans-serif;
-}
 .info label{
     color:#666;
     width:100px;

@@ -35,7 +35,9 @@
     {
       lift: lift.details.name,
       weight: lift.details.weight,
-      reps: lift.details.reps
+      reps: lift.details.reps,
+      helpDescription: lift.help[lift.details.name]['description'],
+      helpLink: lift.help[lift.details.name]['link']
     },
     {
       append: true,
