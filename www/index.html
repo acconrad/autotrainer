@@ -9,278 +9,33 @@
         <title>PhoneGap 3.0 Boilerplate</title>
     </head>
     <body>
-      <script type="text/javascript">
-        global_state_oh_yeah_baby = {};
-      </script>
-
         <div id="appView">
+          <h1>Today's Workout:</h1>
+          <ul class="workout-list">
+          </ul>
+          <a href="#" id="complete-workout">Complete Workout</a>
         </div>
 
-        <script type="text/html" id="template-workout">
-            <div data-content="author"></div>
-            <div data-content="date"></div>
-            <img data-src="authorPicture" data-alt="author"/>
-            <div data-content="post"></div>
-
-            <h1 data-content="title">AutoTrainer Roolz!</h1>
-
-            <p data-content="workout">Today's workout:</p>
-
-            <table>
-                <tr>
-                    <th>Lift</th> <th>Sets</th> <th>Reps</th> <th>Work Weight (lbs)</th>
-                </tr>
-                <tr>
-                    <td data-content="exercise0"></td>
-                    <td data-content="setsExercise0"></td>
-                    <td data-content="repsExercise0"></td>
-                    <td data-content="weightExercise0"></td>
-                </tr>
-                <tr>
-                    <td data-content="exercise1"></td>
-                    <td data-content="setsExercise1"></td>
-                    <td data-content="repsExercise1"></td>
-                    <td data-content="weightExercise1"></td>
-                </tr>
-                <tr>
-                    <td data-content="exercise2"></td>
-                    <td data-content="setsExercise2"></td>
-                    <td data-content="repsExercise2"></td>
-                    <td data-content="weightExercise2"></td>
-                </tr>
-            </table>
-
-            <p>Swipe → if you were able to do all these lifts.</p>
-            <p>Swipe ← if you couldn't do all of them.</p>
-            <p>Swipe ↓ for settings</p>
-            <p>Swipe ↑ for exercise description</p>
-        </script>
-
-        <script type="text/html" id="template-success">
-            <h1>Success!</h1>
-        </script>
-
-        <script type="text/html" id="template-failure">
-            <h1>Fail!</h1>
-        </script>
-
-        <script type="text/html" id="template-settings">
-            <h1>Settings</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-squat">
-          <h1>How to Squat</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-bench">
-          <h1>How to Bench Press</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-dead">
-          <h1>How to Deadlift</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-press">
-          <h1>How to Overhead Press</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-row">
-          <h1>How to Row</h1>
-        </script>
-
-        <script type="text/html" id="template-howto-chin">
-          <h1>How to do Chin Ups / Pull Ups</h1>
-        </script>
-
-        <script type="text/javascript" src="js/global.js"></script>
         <script type="text/javascript" src="js/tests.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
         <script type="text/javascript" src="js/swipeupdown.js"></script>
         <script type="text/javascript" src="js/jquery.loadTemplate-1.2.3.min.js"></script>
+        <script type="text/javascript" src="js/startingstrength.js"></script>
+        <script type="text/javascript" src="js/autotrainer.js"></script>
 
-        <script type="text/javascript">
-            global_state_oh_yeah_baby = {};
-            fail_counterA = 0;
-            fail_counterB = 0;
-            workout_scenario_counter = 0;
-            global_template_workoutA = getGlobalTemplateWorkoutA();
-            global_template_workoutB = getGlobalTemplateWorkoutB();
-            global_template_workout = global_template_workoutB;
-
-            function loadWorkout() {
-              if (isWorkoutA() ) {
-                global_template_workout = global_template_workoutA;
-              } else {
-                global_template_workout = global_template_workoutB;
-              }
-              $('#appView').loadTemplate($('#template-workout'), global_template_workout);
-              
-              global_state_oh_yeah_baby.view = 'workout'
-            }
-            function loadSuccess() {
-              $('#appView').loadTemplate($('#template-success'))
-              global_state_oh_yeah_baby.view = 'success'
-              progress();
-              workout_scenario_counter += 1;
-            }
-            function loadFailure() {
-              $('#appView').loadTemplate($('#template-failure'))
-              global_state_oh_yeah_baby.view = 'failure'
-              regress();
-              workout_scenario_counter += 1;
-            }
-            function loadSettings() {
-              $('#appView').loadTemplate($('#template-settings'))
-              global_state_oh_yeah_baby.view = 'settings'
-            }
-            function loadHowTo(i) {
-              exercises = ['squat', 'bench', 'dead', 'press', 'row', 'chin'];
-              current = global_state_oh_yeah_baby.exercise ? global_state_oh_yeah_baby.exercise : 'squat';
-              nextIndex = (exercises.indexOf(current) + i)
-              next = exercises[nextIndex];
-
-              if (next) {
-                global_state_oh_yeah_baby.exercise = next;
-                loadHowToExercise(next);
-              }
-            }
-            function loadHowToExercise(exercise) {
-              template = "#template-howto-" + exercise
-              console.log(template);
-              $('#appView').loadTemplate($(template))
-              global_state_oh_yeah_baby.view = 'howto'
-            }
-            function getGlobalTemplateWorkoutA(){
-              return {
-                exercise0: 'Squat',   //Squat
-                setsExercise0: 3,         //Squat
-                repsExercise0: 5,         //Squat
-                weightExercise0: 45,      //Squat
-                exercise1: 'Bench',
-                setsExercise1: 3,         //Bench
-                repsExercise1: 5,         //Bench
-                weightExercise1: 45,      //Bench
-                exercise2: 'Deadlift',
-                setsExercise2: 1,          //Deadlift
-                repsExercise2: 5,          //Deadlift
-                weightExercise2: 45        //Deadlift
-              };
-            }
-            function getGlobalTemplateWorkoutB(){
-              return {
-                exercise0: 'Squat',
-                setsExercise0: 3,
-                repsExercise0: 5,
-                weightExercise0: 50,
-                exercise1: 'Press',
-                setsExercise1: 3,
-                repsExercise1: 5,
-                weightExercise1: 45,
-                exercise2: 'Row',
-                setsExercise2: 3,
-                repsExercise2: 5,
-                weightExercise2: 45
-              };
-            }
-
-            function progress() {
-              if (isWorkoutA()) {
-                fail_counterA = 0;
-                global_template_workoutA['weightExercise0'] += 5;
-                global_template_workoutA['weightExercise1'] += 5;
-                global_template_workoutA['weightExercise2'] += 5;
-              } else {
-                fail_counterB = 0;
-                global_template_workoutB['weightExercise0'] += 5;
-                global_template_workoutB['weightExercise1'] += 5;
-                global_template_workoutB['weightExercise2'] += 5;
-              }
-              
-              
-            }
-
-
-
-            function regress() {
-              if (isWorkoutA() ) {
-                  fail_counterA += 1;
-                  if (fail_counterA === 3) {
-                    global_template_workout['weightExercise0'] -= 5;
-                    global_template_workout['weightExercise1'] -= 5;
-                    global_template_workout['weightExercise2'] -= 5;
-                    fail_counterA = 0;
-                  }
-              } else {
-                fail_counterB += 1;
-                if (fail_counterB === 3) {
-                    global_template_workoutB['weightExercise0'] -= 5;
-                    global_template_workoutB['weightExercise1'] -= 5;
-                    global_template_workoutB['weightExercise2'] -= 5;
-                    fail_counterB = 0;
-                }
-
-              }
-            }
-
-            function isWorkoutA() {
-                if (workout_scenario_counter % 2 === 0) {
-                    return true;
-                }
-                return false;
-            }
-
-        </script>
-
-        <script>
-            $(function(){
-
-              // Bind the swipeHandler callback function to the swipe event on div.box
-              $( window ).swiperight(swipeRightHandler );
-              $( window ).swipeleft(swipeLeftHandler );
-              $( window ).on('swipedown', swipeDownHandler);
-              $( window ).on('swipeup', swipeUpHandler);
-              $( window ).on('doubleclick', loadWorkout);
-
-              function swipeRightHandler( event ){
-                if (global_state_oh_yeah_baby.view === 'workout') {
-                  loadSuccess();
-                } else if (global_state_oh_yeah_baby.view === 'success') {
-                  loadWorkout();
-                } else if (global_state_oh_yeah_baby.view === 'howto') {
-                  loadHowTo(1);
-                }
-              }
-              function swipeLeftHandler( event ){
-                if (global_state_oh_yeah_baby.view === 'workout') {
-                  loadFailure();
-                } else if (global_state_oh_yeah_baby.view === 'failure') {
-                  loadWorkout();
-                } else if (global_state_oh_yeah_baby.view === 'howto') {
-                  loadHowTo(-1);
-                }
-              }
-              function swipeDownHandler( event ){
-                if (global_state_oh_yeah_baby.view === 'workout') {
-                  loadSettings();
-                } else if (global_state_oh_yeah_baby.view === 'howto') {
-                  loadWorkout();
-                }
-              }
-              function swipeUpHandler( event ){
-                if (global_state_oh_yeah_baby.view === 'workout') {
-                  loadHowTo(0);
-                } else if (global_state_oh_yeah_baby.view === 'settings') {
-                  loadWorkout();
-                }
-              }
-            });
+        <script type="text/html" id="lift-template">
+          <li class="lift">
+            <p>Lift: <span data-content="lift"></span></p>
+            <p>Weight: <span data-content="weight"></span></p>
+            <p>Reps: <span data-content="reps"></span></p>
+          </li>
         </script>
 
         <script type="text/javascript">
             app.initialize();
-            loadWorkout();
+            autotrainer.initialize();
         </script>
     </body>
 </html>
