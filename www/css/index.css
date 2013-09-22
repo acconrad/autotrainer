@@ -31,9 +31,9 @@
 }
 
 .workout-list .lift {
-  width: 300px;
-  margin: 0.5em 2em;
+  margin: 0.5em 1em;
   border: 1px solid gray;
   padding: 0.5em;
+  height: 350px;
 }
 
