@@ -41,7 +41,8 @@
       weight: lift.details.weight,
       reps: lift.details.reps,
       helpDescription: lift.help[lift.details.name]['description'],
-      helpLink: lift.help[lift.details.name]['link']
+      helpLink: lift.help[lift.details.name]['link'],
+      linkText: 'Instructional Video »'
     },
     {
       append: true,

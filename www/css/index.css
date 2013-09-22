@@ -87,7 +87,7 @@ body {
   background-attachment: fixed;
 }
 
-a { font-weight: 400; color: #3498db; text-decoration: underline; }
+a { font-weight: 400; color: #54a8fb; text-decoration: underline; font-weight: bold;}
 
 #appView {
   color: white;
@@ -112,7 +112,7 @@ a { font-weight: 400; color: #3498db; text-decoration: underline; }
   display: block;
   -webkit-transition: opacity 1s ease-out;
   transition: all 1.0s ease-out;
-  opacity: 0; 
+  opacity: 0;
   height: 0;
   overflow: hidden;
 }

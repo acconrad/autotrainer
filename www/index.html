@@ -33,7 +33,9 @@
             <div class="help hidden">
                 <ul>
                     <li data-content="helpDescription"></li>
-                    <li><a data-content="helpLink"></a></li>
+                    <li><a data-template-bind='[
+                      {"attribute": "href", "value": "helpLink"},
+                      {"attribute": "content", "value": "linkText"}]'></a></li>
                 </ul>
             </div>
           </li>
