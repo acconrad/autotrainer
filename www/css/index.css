@@ -73,18 +73,28 @@ h2 {
   border-bottom: 2px solid white;
 }
 
+h2 small {
+  font-size: .5em;
+  border-radius: 16px;
+  padding: 3px 8px;
+  vertical-align: middle;
+  background-color: #1CBD9D;
+}
+
 body {
   background: url('../img/background.jpg') #000;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
+a { font-weight: 400; color: #3498db; text-decoration: underline; }
+
 #appView {
   color: white;
 }
 
 #complete-workout {
-  font-size: :;em;
+  font-size: 1.5em;
   padding: 1em 0;
   background-color: #30CD72;
   width: 100%;
@@ -96,4 +106,31 @@ body {
 
 #complete-workout a {
   text-decoration: none;
+}
+
+.help {
+  display: block;
+  -webkit-transition: opacity 1s ease-out;
+  transition: all 1.0s ease-out;
+  opacity: 0; 
+  height: 0;
+  overflow: hidden;
+}
+
+.help ul {
+  border-top: 1px solid rgba(255, 255, 255, 0.6);
+  margin-left: 0;
+  list-style: none;
+  padding: 20px;
+}
+
+.help li {
+  padding-bottom: 10px;
+}
+
+.help li:last-child { padding-bottom: 0;}
+
+.help.active {
+  opacity: 1;
+  height: auto;
 }

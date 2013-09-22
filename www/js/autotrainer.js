@@ -5,7 +5,11 @@
 
       $('#complete-workout').click(function() {
         populateTodaysWorkout();
-      })
+      });
+
+      $('h2 > small').click(function() {
+        $('.help').toggleClass('active');
+      });
     },
 
     thisWorkout: new StartingStrength()
